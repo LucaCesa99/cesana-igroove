@@ -1,0 +1,109 @@
+{
+  "name": "igroove",
+  "license": "MIT",
+  "type": "project",
+  "description": "Tool for educational network administrators",
+  "autoload": {
+    "psr-0": {
+      "": "src/"
+    }
+  },
+  "repositories": [
+    {
+      "type": "package",
+      "package": {
+        "name": "adldap/adldap",
+        "version": "master",
+        "source": {
+          "url": "https://github.com/mix359/adLDAP.git",
+          "type": "git",
+          "reference": "master"
+        }
+      }
+    }
+  ],
+  "require": {
+    "symfony/icu": "1.0.*",
+    "php": ">=7.0",
+    "symfony/symfony": "2.7.*",
+    "doctrine/orm": "~2.2,>=2.2.3",
+    "doctrine/doctrine-bundle": "~1.2",
+    "twig/extensions": "~1.0",
+    "symfony/assetic-bundle": "~2.3",
+    "symfony/swiftmailer-bundle": "~2.3",
+    "symfony/monolog-bundle": "~2.4",
+    "sensio/distribution-bundle": "~2.3",
+    "sensio/framework-extra-bundle": "~3.0",
+    "sensio/generator-bundle": "~2.3",
+    "incenteev/composer-parameter-handler": "~2.0",
+    "psliwa/pdf-bundle": "dev-master",
+    "pear2/net_transmitter": "@dev",
+    "pear2/cache_shm": "@dev",
+    "pear2/net_routeros": "@dev",
+    "misd/guzzle-bundle": "~1.0",
+    "jms/di-extra-bundle": "^1.8",
+    "jms/security-extra-bundle": "dev-master",
+    "imag/ldap-bundle": "dev-master",
+    "knplabs/gaufrette": "*",
+    "knplabs/knp-gaufrette-bundle": "*",
+    "knplabs/knp-paginator-bundle": "dev-master",
+    "twbs/bootstrap": "3.0.*",
+    "braincrafted/bootstrap-bundle": "~2.0",
+    "jms/serializer-bundle": "*",
+    "zendframework/zend-mail": "*",
+    "google/apiclient": "^2.0",
+    "dizda/cloud-backup-bundle": "dev-master",
+    "hakre/dropbox-uploader": "*",
+    "php-amqplib/rabbitmq-bundle": "1.*",
+    "ob/highcharts-bundle": "*",
+    "sonata-project/doctrine-orm-admin-bundle": "*",
+    "sonata-project/admin-bundle": "~2.3",
+    "sonata-project/core-bundle": "~2.2",
+    "phobetor/rabbitmq-supervisor-bundle": "~1.3",
+    "adldap/adldap": "dev-master",
+    "egeloen/ckeditor-bundle": "^4.0",
+    "dompdf/dompdf": "^0.8.0",
+    "supervisorphp/supervisor": "^3.0",
+    "lstrojny/fxmlrpc": "^0.14.0",
+    "php-http/guzzle6-adapter": "^1.1",
+    "php-http/message": "^1.6",
+    "zendframework/zend-diactoros": "^1.6",
+    "art-of-wifi/unifi-api-client": "^1.1"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+    ],
+    "post-update-cmd": [
+      "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+      "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+      "Braincrafted\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::install"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin"
+  },
+  "minimum-stability": "stable",
+  "extra": {
+    "symfony-app-dir": "app",
+    "symfony-web-dir": "web",
+    "incenteev-parameters": {
+      "file": "app/config/parameters.yml"
+    },
+    "branch-alias": {
+      "dev-master": "3.0.1-dev"
+    }
+  },
+  "require-dev": {
+    "ajgl/breakpoint-twig-extension": "^0.3.0",
+    "phpunit/phpunit": "^6.1"
+  }
+}

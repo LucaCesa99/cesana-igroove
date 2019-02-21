@@ -1,0 +1,30 @@
+Per aggiungere xdebug e farlo funzionare con phpstorm e vagrant
+
+
+Su vagrant seguire le istruzioni di https://xdebug.org/wizard.php
+
+Aggiungere in coda al file /etc/php/7.0/php.ini (o se presente in /etc/php/7.0/apache2/php.ini) il seguente codice
+
+zend_extension = /usr/lib/php/20151012/xdebug.so
+[Xdebug]
+
+#xdebug.remote_connect_back = 1
+xdebug.remote_enable = 1
+xdebug.remote_handler = "dbgp"
+xdebug.remote_port = 9000
+xdebug.idekey = "PHPSTORM"
+xdebug.remote_host=33.33.33.1
+xdebug.autostart=1
+xdebug.remote_log=/var/log/xdebug.log
+
+
+
+Installare su chrome la plugin https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc
+Attivare la plugin e indicare che si userà PHPSTORM
+
+In phpstorm:
+Preferenze Lang > php > server
+   localhost porta 80 con xdebug
+
+Mettere il port mapping a yes mappando la cartella nome_progetto a /vagrant
+
