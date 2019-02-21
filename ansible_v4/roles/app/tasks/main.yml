@@ -1,0 +1,14 @@
+---
+# application tasks to be customized and to run after the main provision
+- name: Copy ldap.conf
+  sudo: yes
+  copy: src="../linuxConfiguration/etc/ldap/ldap.conf" dest="/etc/ldap/ldap.conf"
+- name: Creates directory
+  file: path=/etc/ldap/certs state=directory
+- name: Copy ldap certificate
+  sudo: yes
+  copy: src="../linuxConfiguration/etc/ldap/certs/server.test.network.cer" dest="/etc/ldap/certs/server.test.network.cer"
+  notify: restart apache
+- name: starting data
+  sudo: yes
+  shell: "mysql -uroot -proot igroove < /vagrant/test/myPersonalDump.sql"

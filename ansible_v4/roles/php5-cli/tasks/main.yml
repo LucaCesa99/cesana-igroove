@@ -1,0 +1,28 @@
+- name: Install php5-cli
+  sudo: yes
+  apt: pkg=php5-cli state=latest
+
+- name: ensure timezone is set in cli php.ini
+  lineinfile: dest=/etc/php5/cli/php.ini
+              regexp='date.timezone ='
+              line='date.timezone = {{ timezone }}'
+
+
+- name: xd1
+  lineinfile: dest=/etc/php5/cli/php.ini
+              line="xdebug.profiler_enable=1"
+- name: xd2
+  lineinfile: dest=/etc/php5/cli/php.ini
+              line="xdebug.remote_enable = 1"
+- name: xd3
+  lineinfile: dest=/etc/php5/cli/php.ini
+              line="xdebug.remote_port = 9000"
+- name: xd4
+  lineinfile: dest=/etc/php5/cli/php.ini
+              line="xdebug.remote_handler=dbgp"
+- name: xd5
+  lineinfile: dest=/etc/php5/cli/php.ini
+              line="xdebug.remote_host=33.33.33.1"
+- name: xd6
+  lineinfile: dest=/etc/php5/cli/php.ini
+              line="xdebug.remote_start = 1"

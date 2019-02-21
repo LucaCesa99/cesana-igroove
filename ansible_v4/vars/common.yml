@@ -1,0 +1,6 @@
+---
+    php_ppa: php5
+    doc_root: /vagrant
+    sys_packages: ["vim","git","mcrypt"]
+    php_packages: ["php5-mcrypt","php5-ldap","php5-curl","php5-common","php5-intl","php5-gd","php5-mysql"]
+    pecl_packages: []
