@@ -1,0 +1,33 @@
+imports:
+    - { resource: parameters_test.yml }
+    - { resource: config_dev.yml }
+
+
+framework:
+    test: ~
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
+
+swiftmailer:
+    disable_delivery: true
+
+doctrine:
+    dbal:
+            driver: pdo_sqlite
+            path: :memory:
+            memory: true
+
+parameters:
+    adLdap_configuration:
+        base_dn: '%adLdap_base_dn%'
+        domain_controllers:
+            0: '%adLdap_domain_controller%'
+        admin_username: '%adLdap_admin_username%'
+        admin_password: '%adLdap_admin_password%'
+        use_ssl: '%adLdap_use_ssl%'
+        account_suffix: '%adLdap_account_suffix%'
+        generated_group_prefix:
+        sync_suffix:  'test'
+        real_primarygroup: true

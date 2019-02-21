@@ -1,0 +1,23 @@
+imag_ldap:
+  client:
+    host: 10.10.0.8
+    port: 389
+    version: 3 
+    referrals_enabled: 0    
+    username: ldapAdmin
+    password: Secret-Password
+
+  user:
+    base_dn: DC=test,DC=network
+    name_attribute: samaccountname
+    attributes: [pwdlastset, useraccountcontrol]
+  role:
+    base_dn: DC=test,DC=network
+    name_attribute: cn
+    user_attribute: member
+    user_id: dn
+security:
+    role_hierarchy:
+        ROLE_DOCENTI:       ROLE_TEACHER
+        ROLE_DOMAIN_ADMINS: ROLE_ADMIN
+        ROLE_PORTINERIA:    ROLE_RECEPTION

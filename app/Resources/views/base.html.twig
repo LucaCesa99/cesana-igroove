@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}igroove{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('css/colorbox.css') }}" media="screen">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}" media="screen">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap-switch.css') }}" media="screen">
+            <link rel="stylesheet" href="{{ asset('css/bootstrap-typeahead.css') }}" media="screen">
+            <link rel="stylesheet" href="{{ asset('css/custom.css') }}" media="screen">
+
+            <!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+            {% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+            <style>
+                .starter {
+                    padding: 80px 15px;
+                }
+            </style>
+        {% endblock %}
+        {% block javascripts %}
+            <script type="text/javascript" src="{{ asset('js/jquery-1.10.2.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('js/jquery.colorbox-min.js') }}"></script>   
+            <script type="text/javascript" src="{{ asset('js/bootstrap3.js') }}"></script>    
+            <script type="text/javascript" src="{{ asset('js/bootstrap-switch.js') }}"></script> 
+            <script type="text/javascript" src="{{ asset('js/typeahead.min.js') }}"></script>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block menu %}
+            {% if app.user and is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                {% render controller('ZenIgrooveBundle:Default:menu') %}       
+            {% endif %}
+        {% endblock %}
+        <div class="container">
+            <div class="starter">
+            {% block body %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>

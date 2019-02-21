@@ -1,0 +1,211 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: igroove.yml }
+    - { resource: security.yml }
+    - { resource: @ZenIgrooveBundle/Resources/config/services.yml }
+    - { resource: @ZenIgrooveBundle/Resources/config/filters.yml }
+    - { resource: @ZenIgrooveBundle/Resources/config/admin.yml }
+    - { resource: @ZenIgrooveBundle/Resources/config/rabbitmq.yml }
+framework:
+    default_locale: '%locale%'
+    translator:
+        fallback: it
+    secret: '%secret%'
+    router:
+        resource: '%kernel.root_dir%/config/routing.yml'
+    form: true
+    csrf_protection: true
+    validation:
+        enable_annotations: true
+    templating:
+        engines:
+            - twig
+    session:
+        handler_id: ~
+swiftmailer:
+    transport: '%mailer_transport%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
+    encryption: '%mailer_encryption%'
+    port: '%mailer_port%'
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+assetic:
+    debug: '%kernel.debug%'
+    use_controller: false
+    filters:
+        cssrewrite: null
+doctrine:
+    dbal:
+        driver: '%database_driver%'
+        host: '%database_host%'
+        port: '%database_port%'
+        dbname: '%database_name%'
+        user: '%database_user%'
+        password: '%database_password%'
+        charset: UTF8
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        auto_mapping: true
+#ps_pdf:
+#    nodes_file: null
+#    fonts_file: null
+#    complex_attributes_file: null
+#    colors_file: null
+#    use_cache_in_stylesheet: null
+#    cache:
+#        type: null
+#        options: null
+#    markdown_stylesheet_filepath: null
+#    markdown_document_template_filepath: null
+#    document_parser_type: null
+knp_paginator:
+    page_range: 5
+    default_options:
+        page_name: page
+        sort_field_name: sort
+        sort_direction_name: direction
+        distinct: true
+braincrafted_bootstrap:
+    output_dir: null
+    assets_dir: '%kernel.root_dir%/../vendor/twbs/bootstrap'
+    jquery_path: '%kernel.root_dir%/../js/jquery-1.10.2.js'
+    css_preprocessor: none
+dizda_cloud_backup:
+    output_file_prefix: hostname
+    processor:
+        type: tar
+        options:
+            compression_ratio: 6
+    folders:
+        - app/config
+    cloud_storages:
+        dropbox:
+            user: test
+            password: myPassword
+    databases:
+        mysql:
+            all_databases: false
+            database: igroove
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host:     'localhost'
+            port:     5672
+            user:     'guest'
+            password: 'guest'
+            vhost:    '%rabbitMq_vhost%'
+            lazy:     false
+            connection_timeout: 3
+            read_write_timeout: 3
+
+            # requires php-amqplib v2.4.1+ and PHP5.4+
+            keepalive: false
+
+            # requires php-amqplib v2.4.1+
+            heartbeat: 0
+    producers:
+        ldap_service:
+            connection:       default
+            exchange_options: {name: 'ldap_service', type: direct}
+        mikrotik_service:
+            connection:       default
+            exchange_options: {name: 'mikrotik_service', type: direct}
+        version_service:
+            connection:       default
+            exchange_options: {name: 'version_service', type: direct}
+        google_apps_service:
+            connection:       default
+            exchange_options: {name: 'google_apps_service', type: direct}
+    consumers:
+        ldap_service:
+            connection:       default
+            exchange_options: {name: 'ldap_service', type: direct}
+            queue_options:    {name: 'ldap_service'}
+            callback:         consumer.ldap
+        ldap_service_retry:
+            connection:       default
+            exchange_options: {name: 'ldap_service_retry', type: direct}
+            queue_options:    {name: 'ldap_service_retry', arguments: {'x-dead-letter-exchange': ['S', 'ldap_service']}}
+            callback:         consumer.ldap
+        mikrotik_service:
+            connection:       default
+            exchange_options: {name: 'mikrotik_service', type: direct}
+            queue_options:    {name: 'mikrotik_service'}
+            callback:         consumer.mikrotik
+        mikrotik_service_retry:
+            connection:       default
+            exchange_options: {name: 'mikrotik_service_retry', type: direct}
+            queue_options:    {name: 'mikrotik_service_retry', arguments: {'x-dead-letter-exchange': ['S', 'mikrotik_service']}}
+            callback:         consumer.mikrotik
+        version_service:
+            connection:       default
+            exchange_options: {name: 'version_service', type: direct}
+            queue_options:    {name: 'version_service'}
+            callback:         consumer.version
+        version_service_retry:
+            connection:       default
+            exchange_options: {name: 'version_service_retry', type: direct}
+            queue_options:    {name: 'version_service_retry', arguments: {'x-dead-letter-exchange': ['S', 'version_service']}}
+            callback:         consumer.version
+        google_apps_service:
+            connection:       default
+            exchange_options: {name: 'google_apps_service', type: direct}
+            queue_options:    {name: 'google_apps_service'}
+            callback:         consumer.google_apps
+        google_apps_service_retry:
+            connection:       default
+            exchange_options: {name: 'google_apps_service_retry', type: direct}
+            queue_options:    {name: 'google_apps_service_retry', arguments: {'x-dead-letter-exchange': ['S', 'google_apps_service']}}
+            callback:         consumer.google_apps
+
+sonata_block:
+    default_contexts: [cms]
+    blocks:
+        sonata.admin.block.admin_list:
+        sonata.block.service.text:
+        sonata.block.service.rss:
+        sonata.user.block.menu:    # used to display the menu in profile pages
+        sonata.user.block.account: # used to display menu option (login option)
+
+sonata_admin:
+    templates:
+        # default global templates
+        layout:  SonataAdminBundle::standard_layout.html.twig
+        ajax:    SonataAdminBundle::ajax_layout.html.twig
+
+        # default actions templates, should extend a global templates
+        list:    SonataAdminBundle:CRUD:list.html.twig
+        show:    SonataAdminBundle:CRUD:show.html.twig
+        edit:    SonataAdminBundle:CRUD:edit.html.twig
+
+    dashboard:
+        blocks:
+            - { position: left, type: sonata.admin.block.admin_list }
+    title:      igroove
+
+monolog:
+    channels: [actions]
+    handlers:
+        actions:
+            type:   service
+            id: zen.igroove.actionLogHandler
+            channels: [actions]
+
+        errors:
+            type:   stream
+            level:  error
+            path:   %kernel.logs_dir%/errors.log
+
+#fos_rest:
+#    view:
+#        formats:
+#            json: true
+#        templating_formats:
+#            html: true
+#        force_redirects:
+#            html: true
+#        failed_validation: HTTP_BAD_REQUEST
+#        default_engine: twig

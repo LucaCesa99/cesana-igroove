@@ -1,0 +1,19 @@
+# This file is auto-generated during the composer install
+parameters:
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    mailer_encryption: null
+    mailer_port: 25
+    mailer_name: igroove
+    locale: it
+    secret: ThisTokenIsNotSoSecretChangeIt
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     igroove
+    database_user:     root
+    database_password: root
+    rabbitMq_vhost  :   /
+    send_error_to: email@my.address.network
